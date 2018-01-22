@@ -1,34 +1,44 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
+
 
     public static void main(String[] args) {
         ArrayList arrayList = new ArrayList();
       //  Future<ArrayList> arrList = new Future<ArrayList>();
 //        ArrayList <Future<ArrayList<Map>>> list = new ArrayList<Future<ArrayList>>();
-        ArrayList<Map> list = new ArrayList<Map>();
+       ArrayList<Map> list = new ArrayList<Map>();
 
         LoadFile loadFile = new LoadFile();
         arrayList = loadFile.loadFile();
 
+
         Mapper mapper = new Mapper();
         mapper.setArray(arrayList);
       //  mapper.mapper();
+       // Thread thread = new Thread(mapper);
+        //thread.run();
+        Map<Integer, String> map = new HashMap<Integer, String>();
 
-        try {
-            list = mapper.call().get();
+       // list = mapper.call().;
+       map = mapper.mapper();
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+      // list = mapper.getArray();
+
+        for(Map.Entry m:map.entrySet()){
+            System.out.println(m.getKey()+" "+m.getValue());
         }
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getValue() + " " + list.get(i).getKey());
-        }
 
+       /* for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+*/
     }
 }

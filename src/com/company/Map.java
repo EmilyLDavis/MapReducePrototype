@@ -1,3 +1,4 @@
+/*
 
 package com.company;
 import java.util.*;
@@ -25,3 +26,4 @@ public class Map<Key, Value> {
 }
 
 
+*/

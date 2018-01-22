@@ -1,4 +1,4 @@
-
+/*
 package com.company;
 
 import java.lang.reflect.Array;
@@ -13,18 +13,17 @@ import java.util.concurrent.Future;
 
 public class Mapper implements Callable {
     private ArrayList array;
-    //  private Map map;
+    private Map map;
 
     private ArrayList<Map> maplist = new ArrayList<Map>();
-    Map<Integer, String> map = new HashMap<Integer, String>();
 
 
-    public Map<Integer, String> mapper() {
+    public ArrayList<Map> mapper() {
 
         for (int i = 0; i < array.size(); i++) {
             //array.get(i);
             String[] line = array.get(i).toString().split(",");
-            String PassId = line[0];
+            String  PassId = line[0];
             String FlightId = line[1];
             String From = line[2];
             String Dest = line[3];
@@ -33,29 +32,54 @@ public class Mapper implements Callable {
 
             map.put(i, From);
 
+
+            maplist.add(map);
+
+
         }
-        return map;
+        return maplist;
+
     }
 
+    public ArrayList<Map> call() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Callable call = new Callable() {
+            @Override
+            public Object call() throws Exception {
+                mapper();
+                return maplist;
+            }
+
+        };
+        return null;
+      ///  return executorService.submit(call);
+    }
+
+    // ArrayList<myObject> lst_MyObjects= new ArrayList<myObject>();
+    */
+/* return lst_MyObjects;*//*
+
+
+
     public ArrayList getArray() {
-        return maplist;
+        return array;
     }
 
     public void setArray(ArrayList array) {
         this.array = array;
     }
 
- /*   @Override
-    public void run() {
-         mapper();
-    }
-*/
 
-    @Override
-    public Object call() throws Exception {
-        Map<Integer, String> map2;
-        map2 = mapper();
-        //mapper();
-        return map2;
-    }
+ */
+/*   Map<Integer,String> map=new HashMap<Integer,String>();
+  map.put(100,"Amit");
+  map.put(101,"Vijay");
+  map.put(102,"Rahul");
+  for(Map.Entry m:map.entrySet()){
+        System.out.println(m.getKey()+" "+m.getValue());
+    }*//*
+
+
+
 }
+*/
