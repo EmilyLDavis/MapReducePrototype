@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -12,12 +13,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Mapper implements Callable {
-    private ArrayList array;
+    private List array;
     //  private Map map;
 
-    private ArrayList<Map> maplist = new ArrayList<Map>();
-    Map<Integer, String> map = new HashMap<Integer, String>();
-
+    private List<Map> maplist = new ArrayList<Map>();
+    Map<Integer, String> map = new HashMap<>();
+   // Map <Future<Integer, String>> list = new ArrayList<Future<Integer>>();
 
     public Map<Integer, String> mapper() {
 
@@ -31,17 +32,19 @@ public class Mapper implements Callable {
             String DeptTime = line[4];
             String FlightTime = line[5];
 
+           // Future<Integer> i= exc
+
             map.put(i, From);
 
         }
         return map;
     }
 
-    public ArrayList getArray() {
+    public List getArray() {
         return maplist;
     }
 
-    public void setArray(ArrayList array) {
+    public void setArray(List array) {
         this.array = array;
     }
 
@@ -53,8 +56,12 @@ public class Mapper implements Callable {
 
     @Override
     public Object call() throws Exception {
-        Map<Integer, String> map2;
-        map2 = mapper();
+
+      //  ExecutorService executor = Executors.newFixedThreadPool(10);
+       // Map <Future<Integer, String>> map = new HashMap<Future<Integer, String>>();
+        Map<Future<Integer>, Future<String>> map2 = new HashMap<>();
+       // map2 = mapper();
+
         //mapper();
         return map2;
     }

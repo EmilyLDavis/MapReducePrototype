@@ -2,43 +2,56 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        ArrayList arrayList = new ArrayList();
-      //  Future<ArrayList> arrList = new Future<ArrayList>();
-//        ArrayList <Future<ArrayList<Map>>> list = new ArrayList<Future<ArrayList>>();
-       ArrayList<Map> list = new ArrayList<Map>();
+        List arrayList = new ArrayList();
 
         LoadFile loadFile = new LoadFile();
         arrayList = loadFile.loadFile();
 
+        ArrayList<List<String>> ListofSubList = new ArrayList<List<String>>();
 
+
+        for (int start = 0; start < arrayList.size(); start += 10) {
+            int end = Math.min(start + 10, arrayList.size());
+
+            List<String> sublist = arrayList.subList(start, end);
+            //  System.out.println(sublist);
+            ListofSubList.add(sublist);
+
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(ListofSubList.size());
+        List<Future<Map<Integer, String>>> list = new ArrayList<Future<Map<Integer, String>>>();
         Mapper mapper = new Mapper();
-        mapper.setArray(arrayList);
-      //  mapper.mapper();
-       // Thread thread = new Thread(mapper);
-        //thread.run();
-        Map<Integer, String> map = new HashMap<Integer, String>();
 
-       // list = mapper.call().;
-       map = mapper.mapper();
+        for (int i = 0; i < ListofSubList.size(); i++) {
 
+            mapper.setArray(ListofSubList.get(i));
 
+            Callable<Map<Integer, String>> callable = new Mapper();
 
+            Future<Map<Integer, String>> future = executor.submit(callable);
 
-      // list = mapper.getArray();
-
-        for(Map.Entry m:map.entrySet()){
-            System.out.println(m.getKey()+" "+m.getValue());
+            list.add(future);
         }
 
-       /* for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
+
+        for (Future<Map<Integer, String>> fut : list) {
+            try {
+
+                System.out.println(fut.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
         }
-*/
     }
 }
