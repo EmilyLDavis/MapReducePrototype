@@ -28,30 +28,59 @@ public class Main {
         }
 
         ExecutorService executor = Executors.newFixedThreadPool(ListofSubList.size());
-        List<Future<Map<Integer, String>>> list = new ArrayList<Future<Map<Integer, String>>>();
-        Mapper mapper = new Mapper();
+        HashMap hm = new HashMap();
+       PassMapper mapper = new PassMapper();
 
+        Map<Integer, String> map = new HashMap<>();
         for (int i = 0; i < ListofSubList.size(); i++) {
 
-            mapper.setArray(ListofSubList.get(i));
+          map=  mapper.Mapper(ListofSubList.get(i));
 
-            Callable<Map<Integer, String>> callable = new Mapper();
+           // mapper.setArray(ListofSubList.get(i));
+        //   executor.submit(mapper);
 
-            Future<Map<Integer, String>> future = executor.submit(callable);
 
-            list.add(future);
+           Combiner combiner = new Combiner();
+           combiner.combine(map);
+
+            System.out.println(map);
+
+
+           /*callable = new Mapper();
+
+            future = executor.submit(callable);
+            future.isDone();*/
+
+
+          /*  try {
+     //           System.out.println(future.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }*/
+
+
+            //list.add(future);
+
+
         }
 
+      /*  for (int i = 0; i < list.size(); i++) {
 
+
+                System.out.println(list.get(i).get(future));
+
+        }
+*/
+/*
         for (Future<Map<Integer, String>> fut : list) {
             try {
-
                 System.out.println(fut.get());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
 
-
-        }
+        }*/
     }
 }

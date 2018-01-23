@@ -1,3 +1,4 @@
+/*
 
 package com.company;
 
@@ -48,21 +49,24 @@ public class Mapper implements Callable {
         this.array = array;
     }
 
- /*   @Override
+ */
+/*   @Override
     public void run() {
          mapper();
     }
-*/
+*//*
+
 
     @Override
     public Object call() throws Exception {
 
       //  ExecutorService executor = Executors.newFixedThreadPool(10);
        // Map <Future<Integer, String>> map = new HashMap<Future<Integer, String>>();
-        Map<Future<Integer>, Future<String>> map2 = new HashMap<>();
+       // Map<Future<Integer>, Future<String>> map2 = new HashMap<>();
        // map2 = mapper();
-
+        mapper();
         //mapper();
-        return map2;
+        return map;
     }
 }
+*/
