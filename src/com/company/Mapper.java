@@ -19,6 +19,4 @@ public interface Mapper<K, V> extends Runnable {
     public ArrayList<HashMap<String, String>> getList();
 
 
-
-
 }

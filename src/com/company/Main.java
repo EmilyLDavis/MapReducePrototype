@@ -7,32 +7,24 @@ import java.util.concurrent.*;
 
 public class Main {
 
-
     public static void main(String[] args) {
-        ArrayList<ArrayList> arrayList = new ArrayList();
-
         LoadFile loadFile = new LoadFile();
-        arrayList = loadFile.loadFile();
+
+        ArrayList<ArrayList> PassArrayList = new ArrayList();
+        PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data_no_error.csv");
+        ArrayList<ArrayList> AirportArrayList = new ArrayList();
+        AirportArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\Top30_airports_LatLong.csv");
 
         ArrayList<List<ArrayList>> ListofSubList = new ArrayList<List<ArrayList>>();
+        for (int start = 0; start < PassArrayList.size(); start += 20) {
+            int end = Math.min(start + 20, PassArrayList.size());
 
-
-        for (int start = 0; start < arrayList.size(); start += 20) {
-            int end = Math.min(start + 20, arrayList.size());
-
-            List<ArrayList> sublist = arrayList.subList(start, end);
+            List<ArrayList> sublist = PassArrayList.subList(start, end);
             //  System.out.println(sublist);
             ListofSubList.add(sublist);
-
         }
 
-
-
-        ArrayList<Future<ArrayList<HashMap<String, String>>>> future = new ArrayList<>();
-        ArrayList<ArrayList> map = new ArrayList<>();
-        ExecutorService es = Executors.newFixedThreadPool(ListofSubList.size());
-
-
+        ArrayList<ArrayList> Passmap = new ArrayList<>();
 
         for (int i = 0; i < ListofSubList.size(); i++) {
             Mapper mapper = new PassMapper();
@@ -40,10 +32,31 @@ public class Main {
 
             Thread t = new Thread(mapper);
             t.run();
-            map.add(mapper.getList());
+            Passmap.add(mapper.getList());
 
         }
-        System.out.println(map);
+
+        ArrayList<List<ArrayList>> ListofAirportList = new ArrayList<List<ArrayList>>();
+        for (int start = 0; start < AirportArrayList.size(); start += 20) {
+            int end = Math.min(start + 20, AirportArrayList.size());
+
+            List<ArrayList> sublist = PassArrayList.subList(start, end);
+            //  System.out.println(sublist);
+            ListofAirportList.add(sublist);
+        }
+
+        ArrayList<ArrayList> Airportmap = new ArrayList<>();
+
+        for (int i = 0; i < ListofAirportList.size(); i++) {
+            Mapper mapper = new AirportMapper();
+            mapper.setblockrow(ListofAirportList.get(i));
+
+            Thread t = new Thread(mapper);
+            t.run();
+            Airportmap.add(mapper.getList());
+
+        }
+        System.out.println(Airportmap);
 
 
     }

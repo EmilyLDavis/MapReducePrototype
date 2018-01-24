@@ -1,32 +1,51 @@
 package com.company;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class AirportMapper {
-
-    public Map<String, String> Mapper(List array)
-
-    {
-        Map<String, String> map = new HashMap<>();
-        for (int i = 0; i < array.size(); i++) {
-            //array.get(i);
-            String[] line = array.get(i).toString().split(",");
-            String AirportName = line[0];
-            String AirportCode = line[1];
-            String Latitude = line[2];
-            String Longtitude = line[3];
-
-            map.put("Passenger ID", AirportName);
-            map.put("FlightID", AirportCode);
-            map.put("From Airport", Latitude);
-            map.put("Destination", Longtitude );
+public class AirportMapper implements Mapper<String, String>, Runnable {
 
 
+
+    private ArrayList<HashMap<String, String>> mapblock = new ArrayList<>();
+    private   ArrayList<HashMap<String, String>> list = new  ArrayList<HashMap<String, String>>();
+    List<ArrayList>  blockrow;
+
+    public ArrayList<HashMap<String, String>> getList(){
+        return list;
+    }
+
+
+    @Override
+    public ArrayList<HashMap<String, String>> Mapper(List<ArrayList>  blockrow) {
+        List row = new ArrayList();
+
+
+        for (int i = 0; i < blockrow.size(); i++) {
+
+            HashMap<String, String> hashmap = new HashMap<>();
+            row = blockrow.get(i);
+            hashmap.put("Passenger ID", row.get(0).toString());
+            hashmap.put("FlightID", row.get(1).toString());
+            hashmap.put("From Airport", row.get(2).toString());
+            hashmap.put("Destination", row.get(3).toString());
+
+            list.add(hashmap);
 
         }
-        return map;
 
+        return list;
     }
+
+    @Override
+    public void setblockrow(List<ArrayList> blockrow) {
+        this.blockrow = blockrow;
+    }
+
+    @Override
+    public void run() {
+        Mapper(blockrow);
+    }
+
+
 }
+
