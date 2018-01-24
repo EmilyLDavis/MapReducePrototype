@@ -1,38 +1,52 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class PassMapper {
-        //extends Mapperold<Integer, String> {
+public class PassMapper implements Mapper<String, String>, Runnable {
 
-    public Map<Integer, String> Mapper(List array)
 
-    {
-        Map<Integer, String> map = new HashMap<>();
-        for (int i = 0; i < array.size(); i++) {
-            //array.get(i);
-            String[] line = array.get(i).toString().split(",");
-            String PassId = line[0];
-            String FlightId = line[1];
-            String From = line[2];
-            String Dest = line[3];
-            String DeptTime = line[4];
-            String FlightTime = line[5];
 
-            // line1.add();
+    private ArrayList<HashMap<String, String>> mapblock = new ArrayList<>();
+    private   ArrayList<HashMap<String, String>> list = new  ArrayList<HashMap<String, String>>();
+    List<ArrayList>  blockrow;
 
-            // Future<Integer> i= exc
-            // Mapperold mapper<i, From> = new Mapperold();
+    public ArrayList<HashMap<String, String>> getList(){
+        return list;
+    }
 
-            map.put(i, From);
 
+    @Override
+    public ArrayList<HashMap<String, String>> Mapper(List<ArrayList>  blockrow) {
+        List row = new ArrayList();
+
+
+        for (int i = 0; i < blockrow.size(); i++) {
+
+            HashMap<String, String> hashmap = new HashMap<>();
+            row = blockrow.get(i);
+
+            hashmap.put("Passenger ID", row.get(0).toString());
+            hashmap.put("Flight ID", row.get(1).toString());
+            hashmap.put("From Airport", row.get(2).toString());
+            hashmap.put("Destination", row.get(3).toString());
+            hashmap.put("Departure Time", row.get(4).toString());
+            hashmap.put("FlightTime", row.get(5).toString());
+
+            list.add(hashmap);
 
         }
-        return map;
 
+        return list;
+    }
+
+    @Override
+    public void setblockrow(List<ArrayList> blockrow) {
+        this.blockrow = blockrow;
+    }
+
+    @Override
+    public void run() {
+    Mapper(blockrow);
     }
 
 

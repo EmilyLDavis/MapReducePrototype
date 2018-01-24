@@ -4,30 +4,34 @@ import java.util.*;
 
 public class Combiner {
 
-    public Map<Integer, String> combine(Map<Integer, String> map) {
+    public Map<String, String> combine(Map<String, String> map) {
         //
-          Map<Integer, String> newmap = new HashMap<>();
-        ArrayList value = new ArrayList();
+          Map<String, String> newmap = new HashMap<>();
 
-     //   newmap.putAll(map);
+        Map<String, String> groupval = new HashMap<>();
+
+
 
 
         for (Map.Entry m : map.entrySet()) {
 
+            if(map.containsKey(m.getKey())){
+                map.merge( m.getKey().toString(), m.getValue().toString(), String::concat);
+            }
 
-           /* if (!value.contains(m.getValue())) {
-                String val = m.getValue().toString();
-                value.add(val);
-            }*/
-            //newmap.put(m.getKey(), m.getValue());
-
-            //    newmap.merge(m.getKey(), m.getValue(), String::concat);
+           /* if(!map.containsKey(m.getKey())){
+                list.add(m.getKey());
 
 
+                newmap.get(m.getKey()).add(m.getValue());
 
+                newmap.put(m.getKey().toString(), list);
+            }
+            list.add(m.getValue());
 
-         //   map.merge((Integer) m.getKey(), m.getValue().toString(), String::concat);
+            map.get(m.getKey());*/
 
+           // map.merge( m.getKey().toString(), m.getValue().toString(), String::concat);
 
         }
 
