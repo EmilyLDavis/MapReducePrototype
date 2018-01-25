@@ -45,7 +45,7 @@ public class Main {
             ListofAirportList.add(sublist);
         }
 
-        ArrayList<ArrayList> Airportmap = new ArrayList<>();
+       ArrayList<HashMap<String, List<String>>> Airportmap = new ArrayList<HashMap<String, List<String>>>();
 
         for (int i = 0; i < ListofAirportList.size(); i++) {
             Mapper mapper = new AirportMapper();
@@ -53,10 +53,15 @@ public class Main {
 
             Thread t = new Thread(mapper);
             t.run();
-            Airportmap.add(mapper.getList());
+            Combiner combiner= new Combiner();
+            Airportmap.add(combiner.combine(mapper.getList()));
+
+
+           // Airportmap.add(mapper.getList());
 
         }
         System.out.println(Airportmap);
+
 
 
     }

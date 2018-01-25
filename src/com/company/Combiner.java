@@ -4,37 +4,39 @@ import java.util.*;
 
 public class Combiner {
 
-    public Map<String, String> combine(Map<String, String> map) {
-        //
-          Map<String, String> newmap = new HashMap<>();
-
-        Map<String, String> groupval = new HashMap<>();
+    public HashMap<String, List<String>> combine(ArrayList<HashMap<String, String>> mappedList) {
 
 
+        HashMap<String, List<String>> combinedlist = new HashMap<String, List<String>>();
 
+        List<String> vallist = new ArrayList<String>();
 
-        for (Map.Entry m : map.entrySet()) {
+        for (int i = 0; i < mappedList.size(); i++) {
+            for (HashMap<String, String> map : mappedList) {
+                for (Map.Entry<String, String> mapEntry : map.entrySet()) {
 
-            if(map.containsKey(m.getKey())){
-                map.merge( m.getKey().toString(), m.getValue().toString(), String::concat);
+                    String key = mapEntry.getKey();
+                    String value = mapEntry.getValue();
+                    System.out.println(key + value);
+                    Boolean bool = combinedlist.keySet().contains(key);
+                    if (bool == true) {
+                        vallist.add(value);
+                        combinedlist.get(key).add(value);
+                    }
+                    if (!combinedlist.containsKey(mapEntry.getKey())) {
+                        List<String> temp = new ArrayList();
+                        temp.add(mapEntry.getValue());
+                        combinedlist.put(mapEntry.getKey(), temp);
+
+                    }
+                }
             }
-
-           /* if(!map.containsKey(m.getKey())){
-                list.add(m.getKey());
-
-
-                newmap.get(m.getKey()).add(m.getValue());
-
-                newmap.put(m.getKey().toString(), list);
-            }
-            list.add(m.getValue());
-
-            map.get(m.getKey());*/
-
-           // map.merge( m.getKey().toString(), m.getValue().toString(), String::concat);
-
         }
 
-        return map;
+        return combinedlist;
     }
+    
 }
+
+
+
