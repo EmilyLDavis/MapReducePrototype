@@ -1,37 +1,57 @@
 package com.company;
 
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Reducer {
 
-    public void Reducer(Map<String, String> map){
-        Map<String, String> reducedmap = new HashMap();
+    public  HashMap<String,Integer> Reducer( ArrayList<HashMap<String, List<String>>> sortedList) {
+        List<String> vallist = new ArrayList<>();
+        for(int i =0; i <sortedList.size(); i++) {
+            List<String>  temp = new ArrayList(sortedList.get(i).values());
+            vallist.addAll(temp);
+        }
 
-       // reducedmap.merge()
+        //sortedList
+
+       // Pair<String, Integer> pair = new Pair<>();
+        HashMap<String,Integer> no = new HashMap<>();
+        ArrayList<Pair<String, Integer>> listpair = new ArrayList<>();
 
 
-  /*      for(int i =0; i < mappedList.size(); i++){
-            // Set<Map.Entry<String,String> m = mappedList.get(i).entrySet();
+        int count = 0;
+        //vallist = sortedList.values();
 
-            for(Map.Entry<String, String> e : mappedList.get(i).entrySet()) {
-                if(!combinedlist.containsKey(e.getKey())) {
+        for (int i = 0; i < sortedList.size(); i++) {
 
-                    String key = e.getKey();
-                    value.add(e.getValue());
+            for (Map.Entry<String, List<String>> mapEntry : sortedList.get(i).entrySet()) {
+            //System.out.println(mapEntry);
+                vallist = mapEntry.getValue();
+                for(int j=0; j <vallist.size(); j++){
+                    if(!no.containsKey(vallist.get(j))){
+                        String key = vallist.get(j);
+                        int c =1;
+                        no.put(vallist.get(j), c);
 
-                    combinedlist.put(key, value);
+
+
+                    }else if(no.keySet().contains(vallist.get(j))) {
+
+                        String key = vallist.get(j);
+                        count++;
+                        no.put(vallist.get(j), count);
+                    }
+
                 }
+            }
 
-            }*/
-
-
-            for (Map.Entry m : map.entrySet()) {
-             map.merge( m.getKey().toString(), m.getValue().toString(), String::concat);
 
         }
 
-
-
+        return no;
     }
 }

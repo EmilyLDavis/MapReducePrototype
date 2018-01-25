@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.*;
 
-public class Combiner {
+public class Combiner extends Thread {
 
     public HashMap<String, List<String>> combine(ArrayList<HashMap<String, String>> mappedList) {
 
@@ -17,7 +17,6 @@ public class Combiner {
 
                     String key = mapEntry.getKey();
                     String value = mapEntry.getValue();
-                    System.out.println(key + value);
                     Boolean bool = combinedlist.keySet().contains(key);
                     if (bool == true) {
                         vallist.add(value);
@@ -35,7 +34,7 @@ public class Combiner {
 
         return combinedlist;
     }
-    
+
 }
 
 

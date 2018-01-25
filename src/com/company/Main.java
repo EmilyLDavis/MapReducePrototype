@@ -24,19 +24,41 @@ public class Main {
             ListofSubList.add(sublist);
         }
 
-        ArrayList<ArrayList> Passmap = new ArrayList<>();
+        HashMap<String, List<String>> Passmap = new HashMap<>();
+        HashMap<String, List<String>> Airportmap = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> Sorted = new HashMap<>();
+        HashMap<String, Integer> Reduced = new HashMap<>();
+        ArrayList<HashMap<String, List<String>>> fullist = new ArrayList<>();
+
+        Mapper mapper = new PassMapper();
+        ExecutorService es = Executors.newFixedThreadPool(ListofSubList.size());
 
         for (int i = 0; i < ListofSubList.size(); i++) {
-            Mapper mapper = new PassMapper();
+            Thread thread = new Thread(mapper);
             mapper.setblockrow(ListofSubList.get(i));
+            thread.run();
 
-            Thread t = new Thread(mapper);
-            t.run();
-            Passmap.add(mapper.getList());
+            System.out.println(Thread.activeCount());
+            Combiner combiner = new Combiner();
+            Passmap = combiner.combine(mapper.getList());
+
+            Sorting sort = new Sorting();
+            Sorted = sort.Sorting(Passmap);
+            fullist.add(Sorted);
 
         }
 
-        ArrayList<List<ArrayList>> ListofAirportList = new ArrayList<List<ArrayList>>();
+
+        Reducer reduce = new Reducer();
+        Reduced = reduce.Reducer(fullist);
+
+        System.out.println(Reduced);
+
+
+
+
+
+      /*  ArrayList<List<ArrayList>> ListofAirportList = new ArrayList<List<ArrayList>>();
         for (int start = 0; start < AirportArrayList.size(); start += 20) {
             int end = Math.min(start + 20, AirportArrayList.size());
 
@@ -45,7 +67,7 @@ public class Main {
             ListofAirportList.add(sublist);
         }
 
-       ArrayList<HashMap<String, List<String>>> Airportmap = new ArrayList<HashMap<String, List<String>>>();
+
 
         for (int i = 0; i < ListofAirportList.size(); i++) {
             Mapper mapper = new AirportMapper();
@@ -54,15 +76,19 @@ public class Main {
             Thread t = new Thread(mapper);
             t.run();
             Combiner combiner= new Combiner();
-            Airportmap.add(combiner.combine(mapper.getList()));
+            Airportmap = combiner.combine(mapper.getList());
+            Sorting sort = new Sorting();
+            Sorted = sort.Sorting(Airportmap);
 
-
-           // Airportmap.add(mapper.getList());
 
         }
-        System.out.println(Airportmap);
 
 
+        Reducer reduce = new Reducer();
+        Reduced = reduce.Reducer(Sorted);
+       System.out.println(Reduced);
 
+
+*/
     }
 }
