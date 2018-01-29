@@ -1,8 +1,9 @@
 package com.company;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 
-public class AirportMapper implements Mapper<String, String>, Runnable {
+public class AirportMapper implements Mapper<String, String>, Runnable{
 
 
 
@@ -40,12 +41,16 @@ public class AirportMapper implements Mapper<String, String>, Runnable {
     public void setblockrow(List<ArrayList> blockrow) {
         this.blockrow = blockrow;
     }
-
     @Override
     public void run() {
         Mapper(blockrow);
     }
 
-
+/*
+    @Override
+    public Object call() throws Exception {
+        Mapper(blockrow);
+        return list;
+    }*/
 }
 

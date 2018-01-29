@@ -1,17 +1,21 @@
 package com.company;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 
-public class Combiner extends Thread {
+public class Combiner implements Callable {
+  private   HashMap<String, List<String>> combinedlist = new HashMap<String, List<String>>();
+  private ArrayList<HashMap<String, String>> mappedList = new ArrayList<HashMap<String, String>>();
+
+    public void setMappedList(ArrayList<HashMap<String, String>> mappedList) {
+        this.mappedList = mappedList;
+    }
 
     public HashMap<String, List<String>> combine(ArrayList<HashMap<String, String>> mappedList) {
 
-
-        HashMap<String, List<String>> combinedlist = new HashMap<String, List<String>>();
-
         List<String> vallist = new ArrayList<String>();
 
-        for (int i = 0; i < mappedList.size(); i++) {
+        //for (int i = 0; i < mappedList.size(); i++) {
             for (HashMap<String, String> map : mappedList) {
                 for (Map.Entry<String, String> mapEntry : map.entrySet()) {
 
@@ -29,12 +33,17 @@ public class Combiner extends Thread {
 
                     }
                 }
-            }
+           // }
         }
 
         return combinedlist;
     }
 
+    @Override
+    public Object call() throws Exception {
+        combine(mappedList);
+        return combinedlist;
+    }
 }
 
 

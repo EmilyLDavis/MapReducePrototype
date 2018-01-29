@@ -14,8 +14,7 @@ public interface Mapper<K, V> extends Runnable {
 
     public ArrayList<HashMap<K, V>>Mapper(List<ArrayList> blockrow);
     public void setblockrow(List<ArrayList>  blockrow);
-    @Override
-    public void run();
+    ;
     public ArrayList<HashMap<String, String>> getList();
 
 

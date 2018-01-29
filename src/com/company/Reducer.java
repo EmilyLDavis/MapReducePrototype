@@ -49,9 +49,17 @@ public class Reducer {
                 }
             }
 
-
         }
 
         return no;
+    }
+
+    public void red( List list){
+        int count=0;
+        for(int i =0; i <list.size(); i++){
+            count++;
+
+        }
+        System.out.println(list.get(1).toString() + " :" +count);
     }
 }

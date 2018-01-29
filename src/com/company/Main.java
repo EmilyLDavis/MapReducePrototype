@@ -15,6 +15,96 @@ public class Main {
         ArrayList<ArrayList> AirportArrayList = new ArrayList();
         AirportArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\Top30_airports_LatLong.csv");
 
+//        ArrayList<List<ArrayList>> ListofSubList = new ArrayList<List<ArrayList>>();
+//        for (int start = 0; start < PassArrayList.size(); start += 20) {
+//            int end = Math.min(start + 20, PassArrayList.size());
+//
+//            List<ArrayList> sublist = PassArrayList.subList(start, end);
+//            //  System.out.println(sublist);
+//            ListofSubList.add(sublist);
+//        }
+
+        /*ArrayList<HashMap<String, String>> Passmap = new ArrayList<>();
+        HashMap<String, List<String>> Airportmap = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> Sorted = new HashMap<>();
+        HashMap<String, List<String>> Combined = new HashMap<>();
+        HashMap<String, Integer> Reduced = new HashMap<>();
+        ArrayList<HashMap<String, List<String>>> fullist = new ArrayList<>();
+
+
+        ExecutorService es = Executors.newFixedThreadPool(ListofSubList.size());
+
+
+        //   for (int i = 0; i < ListofSubList.size(); i++) {
+        Mapper mapper = new PassMapper();
+        // Thread thread = new Thread(mapper);
+       // es.submit(mapper);
+       // List<Callable<String>> callableTasks = new ArrayList<>();
+        for (int i = 0; i < ListofSubList.size(); i++) {
+
+
+
+
+
+        mapper.setblockrow(ListofSubList.get(i));
+        Future<ArrayList<HashMap<String, String>>> future = es.submit(mapper);
+
+        try {
+            Passmap = future.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println(Thread.activeCount());
+
+        Combiner combiner = new Combiner();
+        combiner.setMappedList(Passmap);
+        Future<HashMap<String, List<String>>> futureC = es.submit(combiner);
+
+        try {
+            Combined = futureC.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        es.shutdown();
+
+        ExecutorService exe = Executors.newFixedThreadPool(ListofSubList.size());
+
+        Sorting sort = new Sorting();
+        sort.setCombinedList(Combined);
+        Future<HashMap<String, List<String>>> futureS = exe.submit(sort);
+
+        try {
+            Sorted = futureS.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        es.shutdown();
+
+
+        fullist.add(Sorted);
+        }
+*/
+        // }
+
+/*
+
+        Reducer reduce = new Reducer();
+        Reduced = reduce.Reducer(fullist);
+
+        System.out.println(Reduced);
+*/
+
+
+
         ArrayList<List<ArrayList>> ListofSubList = new ArrayList<List<ArrayList>>();
         for (int start = 0; start < PassArrayList.size(); start += 20) {
             int end = Math.min(start + 20, PassArrayList.size());
@@ -31,64 +121,34 @@ public class Main {
         ArrayList<HashMap<String, List<String>>> fullist = new ArrayList<>();
 
         Mapper mapper = new PassMapper();
-        ExecutorService es = Executors.newFixedThreadPool(ListofSubList.size());
+  //      ExecutorService es = Executors.newFixedThreadPool(ListofSubList.size());
 
-        for (int i = 0; i < ListofSubList.size(); i++) {
-            Thread thread = new Thread(mapper);
-            mapper.setblockrow(ListofSubList.get(i));
-            thread.run();
+     //   for (int i = 0; i < ListofSubList.size(); i++) {
+          //  Thread thread = new Thread(mapper);
+            //mapper.setblockrow(ListofSubList);
+            mapper.Mapper(PassArrayList);
+         //   thread.run();
 
-            System.out.println(Thread.activeCount());
+
+          //  System.out.println(Thread.activeCount());
             Combiner combiner = new Combiner();
             Passmap = combiner.combine(mapper.getList());
 
             Sorting sort = new Sorting();
-            Sorted = sort.Sorting(Passmap);
+            sort.Sorting(Passmap);
+//           Sorted = sort.Sorting(Passmap);
+          // Sorted = sort.sort();
+
             fullist.add(Sorted);
 
-        }
+       // }
 
 
-        Reducer reduce = new Reducer();
-        Reduced = reduce.Reducer(fullist);
-
-        System.out.println(Reduced);
+       // Reducer reduce = new Reducer();
+      // Reduced = reduce.Reducer(fullist);
 
 
+        //System.out.println(Reduced);
 
-
-
-      /*  ArrayList<List<ArrayList>> ListofAirportList = new ArrayList<List<ArrayList>>();
-        for (int start = 0; start < AirportArrayList.size(); start += 20) {
-            int end = Math.min(start + 20, AirportArrayList.size());
-
-            List<ArrayList> sublist = PassArrayList.subList(start, end);
-            //  System.out.println(sublist);
-            ListofAirportList.add(sublist);
-        }
-
-
-
-        for (int i = 0; i < ListofAirportList.size(); i++) {
-            Mapper mapper = new AirportMapper();
-            mapper.setblockrow(ListofAirportList.get(i));
-
-            Thread t = new Thread(mapper);
-            t.run();
-            Combiner combiner= new Combiner();
-            Airportmap = combiner.combine(mapper.getList());
-            Sorting sort = new Sorting();
-            Sorted = sort.Sorting(Airportmap);
-
-
-        }
-
-
-        Reducer reduce = new Reducer();
-        Reduced = reduce.Reducer(Sorted);
-       System.out.println(Reduced);
-
-
-*/
     }
 }
