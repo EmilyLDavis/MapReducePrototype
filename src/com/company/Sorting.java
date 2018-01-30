@@ -1,48 +1,59 @@
 package com.company;
 
-import javafx.util.Pair;
-
 import java.util.*;
 import java.util.concurrent.Callable;
 
 public class Sorting implements Callable {
     HashMap<String, List<String>> combinedList = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> sortedList = new HashMap<String, List<String>>();
+    private HashMap<String, List<String>> sortedList = new HashMap<String, List<String>>();
+    ArrayList<HashMap<String, String>> passmap = new ArrayList<>();
+    private List list = new ArrayList();
 
-    public void setCombinedList(HashMap<String, List<String>> combinedList) {
-        this.combinedList = combinedList;
+
+    public HashMap getSortedList() {
+        return sortedList;
+    }
+
+    public void setPassmap(ArrayList<HashMap<String, String>> passmap) {
+        this.passmap = passmap;
     }
 
 
+    public void Sorting(ArrayList<HashMap<String, List<String>>> combinedList) {
 
-    public void Sorting(HashMap<String, List<String>> combinedList) {
+        HashMap<String, List<String>> List = new HashMap<String, List<String>>();
+        String key = "Flight ID";
 
-        HashMap<String, List<String>> sortedList = new HashMap<String, List<String>>();
-        String key = "From Airport";
+        for (int i = 0; i < combinedList.size(); i++) {
+           list.add(combinedList.get(i).get(key));
+           // list.add(l);
 
-        ArrayList list = new ArrayList(combinedList.get("From Airport"));
-        Collections.sort(list);
+        }
+
+
+        //  Collections.sort(list);
         HashSet<String> uniqueValues = new HashSet<>(list);
 
 
         for (String s : uniqueValues) {
-            ArrayList newlist = new ArrayList();
+            List<String> temp = new ArrayList();
             for (int j = 0; j < list.size(); j++) {
                 String val = list.get(j).toString();
 
                 if (s.equals(val)) {
-                    newlist.add(list.get(j));
+                    temp.add(val);
+                    sortedList.put(s, temp);
                 }
             }
 
-            Reducer reducer = new Reducer();
-            reducer.red(newlist);
         }
+
     }
+
 
     @Override
     public Object call() throws Exception {
-        Sorting(combinedList);
+        // Sorting(combinedList);
         return sortedList;
     }
 }

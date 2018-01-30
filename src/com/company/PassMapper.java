@@ -8,9 +8,11 @@ public class PassMapper implements Mapper<String, String>, Runnable{
 
 
 
+
     private ArrayList<HashMap<String, String>> mapblock = new ArrayList<>();
     private   ArrayList<HashMap<String, String>> list = new  ArrayList<HashMap<String, String>>();
     List<ArrayList>  blockrow;
+
 
     public ArrayList<HashMap<String, String>> getList(){
         return list;

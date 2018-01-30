@@ -2,64 +2,69 @@ package com.company;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.awt.desktop.SystemSleepEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
-public class Reducer {
+public class Reducer implements Runnable {
+    private StringBuilder sb;
 
-    public  HashMap<String,Integer> Reducer( ArrayList<HashMap<String, List<String>>> sortedList) {
-        List<String> vallist = new ArrayList<>();
-        for(int i =0; i <sortedList.size(); i++) {
-            List<String>  temp = new ArrayList(sortedList.get(i).values());
-            vallist.addAll(temp);
-        }
-
-        //sortedList
-
-       // Pair<String, Integer> pair = new Pair<>();
-        HashMap<String,Integer> no = new HashMap<>();
-        ArrayList<Pair<String, Integer>> listpair = new ArrayList<>();
-
-
+    public void Reducer(Map.Entry<String, List<String>> entry) {
         int count = 0;
-        //vallist = sortedList.values();
-
-        for (int i = 0; i < sortedList.size(); i++) {
-
-            for (Map.Entry<String, List<String>> mapEntry : sortedList.get(i).entrySet()) {
-            //System.out.println(mapEntry);
-                vallist = mapEntry.getValue();
-                for(int j=0; j <vallist.size(); j++){
-                    if(!no.containsKey(vallist.get(j))){
-                        String key = vallist.get(j);
-                        int c =1;
-                        no.put(vallist.get(j), c);
-
-
-
-                    }else if(no.keySet().contains(vallist.get(j))) {
-
-                        String key = vallist.get(j);
-                        count++;
-                        no.put(vallist.get(j), count);
-                    }
-
-                }
-            }
-
-        }
-
-        return no;
-    }
-
-    public void red( List list){
-        int count=0;
-        for(int i =0; i <list.size(); i++){
+        List list = new ArrayList(entry.getValue());
+        for (int i = 0; i < list.size(); i++) {
             count++;
 
         }
-        System.out.println(list.get(1).toString() + " :" +count);
+
+        System.out.println(list.get(1).toString() + " :" + count);
+
+    }
+
+    public void reduce(List list, ArrayList<HashMap<String, String>> mapper) {
+        List listofval = new ArrayList();
+        HashSet dist = new HashSet();
+        HashMap<String, List<String>> newl = new HashMap();
+
+       sb.append(list.get(1)).append("/n");
+
+
+        for (HashMap<String, String> map : mapper) {
+
+            if(map.containsValue(list.get(1).toString())){
+
+                List<String> temp = new ArrayList();
+                temp.add(map.get("Passenger ID"));
+               sb.append(temp.toString());
+                //newl.put(list.get(1).toString(), temp);
+
+            }
+
+        }
+        LoadFile file = new LoadFile();
+        file.printfile(sb);
+
+      /*  for (Map.Entry<String, List<String>> n : newl.entrySet()) {
+            System.out.println(n.getKey() + ": ");
+            for(String s: n.getValue()){
+                System.out.println(s);
+            }
+        }*/
+
+    }
+
+    @Override
+    public void run() {
+
+    }
+
+    public StringBuilder getSb() {
+        return sb;
+    }
+
+    public void setSb(StringBuilder sb) {
+        this.sb = sb;
     }
 }
