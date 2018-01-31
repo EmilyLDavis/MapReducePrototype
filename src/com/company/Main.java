@@ -32,9 +32,6 @@ public class Main {
         HashMap<String, Integer> Reduced = new HashMap<>();
         ArrayList<HashMap<String, List<String>>> fullist = new ArrayList<>();
 
-
-       // mapper.Mapper(PassArrayList);
-      //  Passmap = mapper.getList();
         for (List sublist: ListofSubList ) {
             Mapper mapper = new PassMapper();
             Thread t = new Thread(mapper);
@@ -50,8 +47,6 @@ public class Main {
         }
 
 
-
-
         Sorting sort = new Sorting();
        // sort.setPassmap(Passmap);
         sort.Sorting(Passmap);
@@ -60,12 +55,12 @@ public class Main {
         for (Map.Entry<String, List<String>> entry: Sorted.entrySet()) {
             Reducer reducer = new Reducer();
             reducer.Reducer(entry);
-         //   Runnable r = new Runnable();
+         //  Runnable r = new Runnable();
 
             Thread t = new Thread(reducer);
             t.run();
 
-            reducer.getSb();
+            //reducer.getSb();
 
         }
 

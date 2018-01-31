@@ -23,20 +23,30 @@ public class Sorting implements Callable {
 
         HashMap<String, List<String>> List = new HashMap<String, List<String>>();
         String key = "Flight ID";
+        HashSet<String> uniqueValues = new HashSet<>();
 
         for (int i = 0; i < combinedList.size(); i++) {
-           list.add(combinedList.get(i).get(key));
-           // list.add(l);
+            for (Map.Entry<String, List<String>> entry : combinedList.get(i).entrySet()) {
+                String k = entry.getKey();
+                List<String> value = entry.getValue();
+
+                if (k.equals(key)) {
+                    list.addAll(value);
+                    for (String s : value) {
+
+                        uniqueValues.add(s);
+                    }
+
+                }
+
+            }
 
         }
 
 
-        //  Collections.sort(list);
-        HashSet<String> uniqueValues = new HashSet<>(list);
-
-
         for (String s : uniqueValues) {
             List<String> temp = new ArrayList();
+
             for (int j = 0; j < list.size(); j++) {
                 String val = list.get(j).toString();
 
@@ -47,6 +57,8 @@ public class Sorting implements Callable {
             }
 
         }
+
+     //   System.out.println(sortedList);
 
     }
 
