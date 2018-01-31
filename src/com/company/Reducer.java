@@ -9,50 +9,38 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class Reducer implements Runnable {
-    private StringBuilder sb;
+    //private StringBuilder sb;
+    private String result;
 
     public void Reducer(Map.Entry<String, List<String>> entry) {
         int count = 0;
         List list = new ArrayList(entry.getValue());
         for (int i = 0; i < list.size(); i++) {
             count++;
-
         }
-
-        System.out.println(list.get(1).toString() + " :" + count);
-
+        StringBuilder sb = new StringBuilder();
+        result = sb.append(list.get(0).toString()).append(": ").append(count).toString();
+        System.out.println(list.get(0).toString() + ": " + count);
     }
 
-    public void reduce(List list, ArrayList<HashMap<String, String>> mapper) {
-        List listofval = new ArrayList();
-        HashSet dist = new HashSet();
+    public void reduce(Map.Entry<String, List<String>> entry, ArrayList<HashMap<String, String>> mapper) {
+        List list = new ArrayList(entry.getValue());
         HashMap<String, List<String>> newl = new HashMap();
 
-       sb.append(list.get(1)).append("/n");
-
-
+        StringBuilder s = new StringBuilder();
+        s.append(list.get(1)).append(System.getProperty("line.separator"));
         for (HashMap<String, String> map : mapper) {
-
-            if(map.containsValue(list.get(1).toString())){
+            if (map.containsValue(list.get(1).toString())) {
 
                 List<String> temp = new ArrayList();
                 temp.add(map.get("Passenger ID"));
-               sb.append(temp.toString());
-                //newl.put(list.get(1).toString(), temp);
-
+                s.append(temp.toString()).append(" ");
+                System.out.println(temp.toString());
             }
+            //sb.append(temp.toString());
 
         }
-        LoadFile file = new LoadFile();
-        file.printfile(sb);
-
-      /*  for (Map.Entry<String, List<String>> n : newl.entrySet()) {
-            System.out.println(n.getKey() + ": ");
-            for(String s: n.getValue()){
-                System.out.println(s);
-            }
-        }*/
-
+        result = s.toString();
     }
 
     @Override
@@ -60,11 +48,11 @@ public class Reducer implements Runnable {
 
     }
 
-    public StringBuilder getSb() {
-        return sb;
+    public String getresult() {
+        return result;
     }
 
-    public void setSb(StringBuilder sb) {
-        this.sb = sb;
+    public void setresult(String result) {
+        this.result = result;
     }
 }

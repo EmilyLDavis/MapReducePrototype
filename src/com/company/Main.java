@@ -12,7 +12,7 @@ public class Main {
         LoadFile loadFile = new LoadFile();
 
         ArrayList<ArrayList> PassArrayList = new ArrayList();
-        PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data_no_error.csv");
+        PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data.csv");
         ArrayList<ArrayList> AirportArrayList = new ArrayList();
         AirportArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\Top30_airports_LatLong.csv");
 
@@ -26,51 +26,44 @@ public class Main {
         }
 
        ArrayList<HashMap<String, List<String>>> Passmap = new ArrayList<>();
+        ArrayList<HashMap<String, String>> result = new ArrayList<>();
 
         HashMap<String, List<String>> combined = new HashMap<String, List<String>>();
         HashMap<String, List<String>> Sorted = new HashMap();
-        HashMap<String, Integer> Reduced = new HashMap<>();
-        ArrayList<HashMap<String, List<String>>> fullist = new ArrayList<>();
 
         for (List sublist: ListofSubList ) {
             Mapper mapper = new PassMapper();
             Thread t = new Thread(mapper);
             mapper.setblockrow(sublist);
-           // mapper.Mapper(sublist);
             t.run();
 
             Combiner combiner = new Combiner();
-            combined = combiner.combine(mapper.getList());
+            result = mapper.getList();
+            combined = combiner.combine(result);
 
             Passmap.add(combined);
 
         }
 
-
         Sorting sort = new Sorting();
-       // sort.setPassmap(Passmap);
         sort.Sorting(Passmap);
         Sorted = sort.getSortedList();
+
+        StringBuilder sb = new StringBuilder();
 
         for (Map.Entry<String, List<String>> entry: Sorted.entrySet()) {
             Reducer reducer = new Reducer();
             reducer.Reducer(entry);
-         //  Runnable r = new Runnable();
-
+        //    reducer.reduce(entry, result);
             Thread t = new Thread(reducer);
             t.run();
 
-            //reducer.getSb();
-
+          sb.append(System.getProperty("line.separator")). append(reducer.getresult()).toString();
         }
 
-
-        //Reducer reducer = new Reducer();
-
-
-
-        //  System.out.println(PassArrayList.get());
-        // System.out.println(Passmap.entrySet());
+        String string = sb.toString();
+        LoadFile lf = new LoadFile();
+        lf.printfile(string);
 
     }
 }

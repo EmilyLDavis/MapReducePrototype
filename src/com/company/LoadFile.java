@@ -35,12 +35,12 @@ public class LoadFile {
         return arrayList;
     }
 
-    public void printfile(StringBuilder sb) {
+    public void printfile(String sb) {
         File file = new File("testoutput.txt");
         FileWriter writer = null;
         try {
             writer = new FileWriter(file);
-            writer.write(sb.toString());
+            writer.write(sb);
         } catch (IOException e) {
             e.printStackTrace(); // I'd rather declare method with throws IOException and omit this catch.
         } finally {

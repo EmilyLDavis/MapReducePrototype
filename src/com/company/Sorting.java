@@ -9,7 +9,6 @@ public class Sorting implements Callable {
     ArrayList<HashMap<String, String>> passmap = new ArrayList<>();
     private List list = new ArrayList();
 
-
     public HashMap getSortedList() {
         return sortedList;
     }
@@ -17,7 +16,6 @@ public class Sorting implements Callable {
     public void setPassmap(ArrayList<HashMap<String, String>> passmap) {
         this.passmap = passmap;
     }
-
 
     public void Sorting(ArrayList<HashMap<String, List<String>>> combinedList) {
 
@@ -36,11 +34,8 @@ public class Sorting implements Callable {
 
                         uniqueValues.add(s);
                     }
-
                 }
-
             }
-
         }
 
 
@@ -58,10 +53,7 @@ public class Sorting implements Callable {
 
         }
 
-     //   System.out.println(sortedList);
-
     }
-
 
     @Override
     public Object call() throws Exception {
