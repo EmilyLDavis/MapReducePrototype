@@ -3,31 +3,31 @@ package com.company;
 import java.util.*;
 import java.util.concurrent.Callable;
 
-public class Combiner implements Callable {
-  private   HashMap<String, List<String>> combinedlist = new HashMap<String, List<String>>();
-  private ArrayList<HashMap<String, String>> mappedList = new ArrayList<HashMap<String, String>>();
+public class Combiner<K,V> implements Callable {
+  private   HashMap<K, List<V>> combinedlist = new HashMap<>();
+  private ArrayList<HashMap<K, V>> mappedList = new ArrayList<>();
 
-    public void setMappedList(ArrayList<HashMap<String, String>> mappedList) {
+    public void setMappedList(ArrayList<HashMap<K, V>> mappedList) {
         this.mappedList = mappedList;
     }
 
-    public HashMap<String, List<String>> combine(ArrayList<HashMap<String, String>> mappedList) {
+    public HashMap<K, List<V>> combine(ArrayList<HashMap<K, V>> mappedList) {
 
-        List<String> vallist = new ArrayList<String>();
+        List<V> vallist = new ArrayList<>();
 
         //for (int i = 0; i < mappedList.size(); i++) {
-            for (HashMap<String, String> map : mappedList) {
-                for (Map.Entry<String, String> mapEntry : map.entrySet()) {
+            for (HashMap<K, V> map : mappedList) {
+                for (Map.Entry<K, V> mapEntry : map.entrySet()) {
 
-                    String key = mapEntry.getKey();
-                    String value = mapEntry.getValue();
+                    K key = mapEntry.getKey();
+                    V value = mapEntry.getValue();
                     Boolean bool = combinedlist.keySet().contains(key);
                     if (bool == true) {
                         vallist.add(value);
                         combinedlist.get(key).add(value);
                     }
                     if (!combinedlist.containsKey(mapEntry.getKey())) {
-                        List<String> temp = new ArrayList();
+                        List<V> temp = new ArrayList();
                         temp.add(mapEntry.getValue());
                         combinedlist.put(mapEntry.getKey(), temp);
 

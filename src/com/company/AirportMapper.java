@@ -5,8 +5,6 @@ import java.util.concurrent.Callable;
 
 public class AirportMapper implements Mapper<String, String>, Runnable{
 
-
-
     private ArrayList<HashMap<String, String>> mapblock = new ArrayList<>();
     private   ArrayList<HashMap<String, String>> list = new  ArrayList<HashMap<String, String>>();
     List<ArrayList>  blockrow;
@@ -46,11 +44,6 @@ public class AirportMapper implements Mapper<String, String>, Runnable{
         Mapper(blockrow);
     }
 
-/*
-    @Override
-    public Object call() throws Exception {
-        Mapper(blockrow);
-        return list;
-    }*/
+
 }
 

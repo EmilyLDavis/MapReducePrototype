@@ -6,11 +6,11 @@ import java.util.regex.*;
 
 import static javafx.scene.input.KeyCode.Z;
 
-public class PassMapper implements Mapper<String, String>, Runnable {
+public class PassMapper<K,V> implements Mapper<K, V>, Runnable {
 
 
-    private ArrayList<HashMap<String, String>> mapblock = new ArrayList<>();
-    private ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<K, V>> mapblock = new ArrayList<>();
+    private ArrayList<HashMap<String, String>> list = new ArrayList<>();
     List<ArrayList> blockrow;
 
 
@@ -61,27 +61,10 @@ public class PassMapper implements Mapper<String, String>, Runnable {
 
             list.add(hashmap);
         }
-        //   else{
-        //   errorlist.add(row);
-        // }
+
         return list;
     }
 
-
-    public void validate(List row) {
-
-/*
-        final Pattern pattern = Pattern.compile("^[A-Za-z, ]++$");
-        if (!pattern.matcher(row.get(0).toString()).matches()) {
-
-        throw new IllegalArgumentException("Invalid String");
-
-        }
-        else {
-            return true;
-        }
-*/
-    }
 
 
     @Override
@@ -94,10 +77,6 @@ public class PassMapper implements Mapper<String, String>, Runnable {
         this.blockrow = blockrow;
     }
 
-  /*  @Override
-    public Object call() throws Exception {
-        Mapper(blockrow);
-        return list;
-    }*/
+
 }
 

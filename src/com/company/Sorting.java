@@ -17,10 +17,10 @@ public class Sorting implements Callable {
         this.passmap = passmap;
     }
 
-    public void Sorting(ArrayList<HashMap<String, List<String>>> combinedList) {
+    public void Sorting(ArrayList<HashMap<String, List<String>>> combinedList, String key) {
 
         HashMap<String, List<String>> List = new HashMap<String, List<String>>();
-        String key = "Flight ID";
+
         HashSet<String> uniqueValues = new HashSet<>();
 
         for (int i = 0; i < combinedList.size(); i++) {

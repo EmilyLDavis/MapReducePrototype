@@ -10,60 +10,31 @@ public class Main {
 
     public static void main(String[] args) {
         LoadFile loadFile = new LoadFile();
-
+        int question = 1;
         ArrayList<ArrayList> PassArrayList = new ArrayList();
         PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data.csv");
         ArrayList<ArrayList> AirportArrayList = new ArrayList();
         AirportArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\Top30_airports_LatLong.csv");
 
+        if(question == 1) {
+            String key = "From Airport";
+            String reducer = "ReducerCount";
+            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer);
 
-        ArrayList<List<ArrayList>> ListofSubList = new ArrayList<List<ArrayList>>();
-        for (int start = 0; start < PassArrayList.size(); start += 20) {
-            int end = Math.min(start + 20, PassArrayList.size());
+        }else if(question ==2){
+            String key = "Flight ID";
+            String reducer = "ReducerList";
+            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer);
 
-            List<ArrayList> sublist = PassArrayList.subList(start, end);
-            ListofSubList.add(sublist);
-        }
 
-       ArrayList<HashMap<String, List<String>>> Passmap = new ArrayList<>();
-        ArrayList<HashMap<String, String>> result = new ArrayList<>();
+        }else if(question ==3){
+            String key = "Flight ID";
+            String reducer = "ReducerCount";
+            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer);
 
-        HashMap<String, List<String>> combined = new HashMap<String, List<String>>();
-        HashMap<String, List<String>> Sorted = new HashMap();
-
-        for (List sublist: ListofSubList ) {
-            Mapper mapper = new PassMapper();
-            Thread t = new Thread(mapper);
-            mapper.setblockrow(sublist);
-            t.run();
-
-            Combiner combiner = new Combiner();
-            result = mapper.getList();
-            combined = combiner.combine(result);
-
-            Passmap.add(combined);
 
         }
 
-        Sorting sort = new Sorting();
-        sort.Sorting(Passmap);
-        Sorted = sort.getSortedList();
-
-        StringBuilder sb = new StringBuilder();
-
-        for (Map.Entry<String, List<String>> entry: Sorted.entrySet()) {
-            Reducer reducer = new Reducer();
-            reducer.Reducer(entry);
-        //    reducer.reduce(entry, result);
-            Thread t = new Thread(reducer);
-            t.run();
-
-          sb.append(System.getProperty("line.separator")). append(reducer.getresult()).toString();
-        }
-
-        String string = sb.toString();
-        LoadFile lf = new LoadFile();
-        lf.printfile(string);
 
     }
 }
