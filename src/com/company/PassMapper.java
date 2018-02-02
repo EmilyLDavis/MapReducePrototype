@@ -6,10 +6,10 @@ import java.util.regex.*;
 
 import static javafx.scene.input.KeyCode.Z;
 
-public class PassMapper<K,V> implements Mapper<K, V>, Runnable {
+public class PassMapper extends Mapper<String, String> {
 
 
-    private ArrayList<HashMap<K, V>> mapblock = new ArrayList<>();
+    private ArrayList<HashMap<String, String>> mapblock = new ArrayList<>();
     private ArrayList<HashMap<String, String>> list = new ArrayList<>();
     List<ArrayList> blockrow;
 
@@ -46,7 +46,7 @@ public class PassMapper<K,V> implements Mapper<K, V>, Runnable {
 
         }
 
-      
+
         for (int i = 0; i < correctdata.size(); i++) {
 
             HashMap<String, String> hashmap = new HashMap<>();

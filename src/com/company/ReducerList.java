@@ -1,3 +1,4 @@
+/*
 package com.company;
 
 import java.util.*;
@@ -9,22 +10,20 @@ public class ReducerList<K, V> implements Reducer<K,V> {
 
     @Override
     public void Reducer(Map.Entry<K, List<V>> entry) {
-        List list = new ArrayList(entry.getValue());
-        HashMap<K, List<V>> newl = new HashMap();
+        List<V> list = new ArrayList(entry.getValue());
+        List<V> passlist = new ArrayList();
+            StringBuilder sb = new StringBuilder();
+        System.out.println("Flight ID: " + list.get(0) + "  ");
+        sb.append("Flight ID").append(list.get(0)).append(System.getProperty("line.separator"));
 
-        StringBuilder s = new StringBuilder();
-        s.append(list.get(0).toString() ).append(System.getProperty("line.separator"));
-        for (HashMap<K, V> map : mapper) {
-            if (map.containsValue(list.get(0).toString())) {
+        for(HashMap<K, V> hm : mapper){
+            if(hm.get("Flight ID").equals(list.get(0))){
+                passlist.add(hm.get("Passenger ID"));
 
-                List<V> temp = new ArrayList();
-                temp.add(map.get("Passenger ID"));
-                s.append(temp.toString()).append(" ");
-                System.out.println(temp.toString());
+                sb.append("Passenger ID").append(System.getProperty("line.separator"));
+                System.out.println( hm.get("Passenger ID"));
             }
-
         }
-        result = s.toString();
     }
 
     @Override
@@ -44,3 +43,4 @@ public class ReducerList<K, V> implements Reducer<K,V> {
         this.mapper = mapper;
     }
 }
+*/

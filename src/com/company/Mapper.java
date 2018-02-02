@@ -10,12 +10,19 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 
-public interface Mapper<K, V> extends Runnable {
+public abstract class Mapper<K, V> extends Thread {
 
-    public ArrayList<HashMap<String, String>>Mapper(List<ArrayList> blockrow);
-    public void setblockrow(List<ArrayList>  blockrow);
-    ;
-    public ArrayList<HashMap<String, String>> getList();
+    public ArrayList<HashMap<String, String>> Mapper(List<ArrayList> blockrow) {
+        return null;
+    }
+
+    public void setblockrow(List<ArrayList> blockrow) {
+
+    }
+
+    public ArrayList<HashMap<String, String>> getList() {
+        return null;
+    }
 
 
 }

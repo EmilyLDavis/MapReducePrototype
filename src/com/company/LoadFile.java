@@ -5,25 +5,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class LoadFile {
     private String file;
 
 
-    public ArrayList<ArrayList> loadFile(String FileName) {
+    public ArrayList<ArrayList> loadFile(String FileName, int size) {
 
         String line;
         ArrayList arrayList = new ArrayList();
+       // int size;
 
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(FileName));
-            while ((line = br.readLine()) != null) {
-
-                // arrayList.add(line);
-                arrayList.add(Arrays.asList(line.split(",")));
-
+            while ((line = br.readLine()) != null ) {
+             List List = Arrays.asList(line.split(","));
+                 // arrayList.add(line);
+                if(List.size() == size) {
+                    arrayList.add(List);
+                }
 
             }
         } catch (FileNotFoundException e1) {

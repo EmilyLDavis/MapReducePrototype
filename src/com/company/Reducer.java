@@ -2,16 +2,23 @@ package com.company;
 
 import java.util.*;
 
-public interface Reducer<K, V> extends Runnable {
+public abstract class Reducer<K, V> extends Thread {
 
-    public void Reducer(Map.Entry<K, List<V>> entry);
+    public void Reducer(Map.Entry<K, List<V>> entry) {
+
+    }
 
     @Override
-    public void run();
+    public void run() {
 
-    public String getresult();
+    }
 
-    public void setresult(String result);
+    public HashMap<K, V> getresult() {
+        return null;
+    }
 
-    public void setMapper(ArrayList<HashMap<K, V>> mapper);
+
+    public void setMapper(ArrayList mapper) {
+
+    }
 }

@@ -3,7 +3,7 @@ package com.company;
 import java.util.*;
 import java.util.concurrent.Callable;
 
-public class Sorting implements Callable {
+public class Sorting implements Runnable {
     HashMap<String, List<String>> combinedList = new HashMap<String, List<String>>();
     private HashMap<String, List<String>> sortedList = new HashMap<String, List<String>>();
     ArrayList<HashMap<String, String>> passmap = new ArrayList<>();
@@ -56,8 +56,8 @@ public class Sorting implements Callable {
     }
 
     @Override
-    public Object call() throws Exception {
+    public void run() {
         // Sorting(combinedList);
-        return sortedList;
+       // return sortedList;
     }
 }

@@ -12,29 +12,33 @@ public class Main {
         LoadFile loadFile = new LoadFile();
         int question = 1;
         ArrayList<ArrayList> PassArrayList = new ArrayList();
-        PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data.csv");
+        PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data.csv", 6);
         ArrayList<ArrayList> AirportArrayList = new ArrayList();
-        AirportArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\Top30_airports_LatLong.csv");
+        AirportArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\Top30_airports_LatLong.csv", 4);
 
-        if(question == 1) {
+        if (question == 1) {
             String key = "From Airport";
             String reducer = "ReducerCount";
-            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer);
+            int Q =1;
+           MapReduceJob mapReduceJob= new MapReduceJob(PassArrayList, key, reducer, Q, AirportArrayList);
+          // mapReduceJob.setAirportArrayList(AirportArrayList);
 
-        }else if(question ==2){
+
+        } /*else if (question == 2) {
             String key = "Flight ID";
             String reducer = "ReducerList";
-            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer);
+            int Q =2;
+            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer, Q);
 
 
-        }else if(question ==3){
+        } else if (question == 3) {
             String key = "Flight ID";
             String reducer = "ReducerCount";
-            MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer);
+            int Q = 3;
+            new MapReduceJob(PassArrayList, key, reducer, Q);
 
 
-        }
-
+        }*/
 
     }
 }
