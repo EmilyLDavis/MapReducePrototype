@@ -21,4 +21,8 @@ public abstract class Reducer<K, V> extends Thread {
     public void setMapper(ArrayList mapper) {
 
     }
+
+    public void setMap(ArrayList<ArrayList<HashMap<String, String>>> mapper) {
+
+    }
 }

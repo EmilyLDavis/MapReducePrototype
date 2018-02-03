@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         LoadFile loadFile = new LoadFile();
-        int question = 1;
+        int question = 3;
         ArrayList<ArrayList> PassArrayList = new ArrayList();
         PassArrayList = loadFile.loadFile("C:\\Users\\edavi\\Documents\\AComp_Passenger_data.csv", 6);
         ArrayList<ArrayList> AirportArrayList = new ArrayList();
@@ -24,21 +24,22 @@ public class Main {
           // mapReduceJob.setAirportArrayList(AirportArrayList);
 
 
-        } /*else if (question == 2) {
+        }/* else if (question == 2) {
             String key = "Flight ID";
             String reducer = "ReducerList";
-            int Q =2;
+            int Q = 2;
             MapReduceJob mapReduceJob = new MapReduceJob(PassArrayList, key, reducer, Q);
+        */
 
 
-        } else if (question == 3) {
+        else if (question == 3) {
             String key = "Flight ID";
             String reducer = "ReducerCount";
             int Q = 3;
-            new MapReduceJob(PassArrayList, key, reducer, Q);
+            new MapReduceJob(PassArrayList, key, reducer, Q, AirportArrayList);
 
 
-        }*/
+        }
 
     }
 }

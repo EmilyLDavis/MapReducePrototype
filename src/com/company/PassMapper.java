@@ -18,7 +18,6 @@ public class PassMapper extends Mapper<String, String> {
         return list;
     }
 
-
     @Override
     public ArrayList<HashMap<String, String>> Mapper(List<ArrayList> blockrow) {
         List row = new ArrayList();

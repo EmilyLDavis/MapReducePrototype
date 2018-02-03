@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class LoadFile {
     private String file;
+    private String filename;
 
 
     public ArrayList<ArrayList> loadFile(String FileName, int size) {
@@ -38,8 +39,8 @@ public class LoadFile {
         return arrayList;
     }
 
-    public void printfile(String sb) {
-        File file = new File("testoutput.txt");
+    public void printfile(String sb, String filename) {
+        File file = new File(filename);
         FileWriter writer = null;
         try {
             writer = new FileWriter(file);
@@ -53,5 +54,7 @@ public class LoadFile {
             }
         }
     }
+
+
 
 }

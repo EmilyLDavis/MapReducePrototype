@@ -24,7 +24,7 @@ public class ReducerCount extends Reducer<String, String> {
         }else{
             result.put(entry.getKey(), String.valueOf(0) );
         }
-        System.out.println("RESULT:  " + result);
+       // System.out.println("RESULT:  " + result);
 
 
     /*    List list = new ArrayList(entry.getValue());
