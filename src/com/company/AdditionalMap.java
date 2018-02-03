@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdditionalMap extends Thread{
+public class AdditionalMap extends Mapper<String, String>{
     List<ArrayList> blockrow;
     private ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
 
-    public void Mapper(List<ArrayList> blockrow){
+    public  ArrayList<HashMap<String, String>>  Mapper(List<ArrayList> blockrow){
         ArrayList<HashMap> map = new ArrayList<>();
         List row = new ArrayList();
         for (int i = 0; i < blockrow.size(); i++) {
@@ -22,6 +22,7 @@ public class AdditionalMap extends Thread{
 
             list.add(hashmap);
         }
+        return list;
     }
 
 
@@ -31,8 +32,5 @@ public class AdditionalMap extends Thread{
     public ArrayList<HashMap<String, String>> getList() {
         return list;
     }
-
-
-
 
 }

@@ -1,29 +1,32 @@
-/*
 package com.company;
 
 import java.util.*;
 
-public class ReducerList<K, V> implements Reducer<K,V> {
-    private String result;
-    private ArrayList<HashMap<K, V>> mapper;
+public class ReducerList extends Reducer<String,String> {
+    private HashMap<String, List<String>> result;
+    private  ArrayList<ArrayList<HashMap<String, String>>> mapper;
 
 
     @Override
-    public void Reducer(Map.Entry<K, List<V>> entry) {
-        List<V> list = new ArrayList(entry.getValue());
-        List<V> passlist = new ArrayList();
-            StringBuilder sb = new StringBuilder();
-        System.out.println("Flight ID: " + list.get(0) + "  ");
-        sb.append("Flight ID").append(list.get(0)).append(System.getProperty("line.separator"));
+    public void Reducer(Map.Entry<String, List<String>> entry) {
+        ArrayList data = new ArrayList();
+        List Passengers = new ArrayList();
+        result = new HashMap<>();
+        for(int i =0; i < mapper.size(); i++){
+            for (HashMap hm: mapper.get(i)   ) {
+                hm.forEach((key, value) -> {
+                    if(entry.getKey().equals(value)) {
+                        data.add(value);
+                        if(!Passengers.contains(key)) {
+                            Passengers.add(key);
+                        }
 
-        for(HashMap<K, V> hm : mapper){
-            if(hm.get("Flight ID").equals(list.get(0))){
-                passlist.add(hm.get("Passenger ID"));
-
-                sb.append("Passenger ID").append(System.getProperty("line.separator"));
-                System.out.println( hm.get("Passenger ID"));
+                    }
+                });
             }
         }
+
+        result.put(entry.getKey(), Passengers);
     }
 
     @Override
@@ -31,16 +34,14 @@ public class ReducerList<K, V> implements Reducer<K,V> {
 
     }
 
-    public String getresult() {
+    @Override
+    public HashMap<String, List<String>> getres() {
         return result;
     }
 
-    public void setresult(String result) {
-        this.result = result;
-    }
 
-    public void setMapper(ArrayList<HashMap<K, V>> mapper) {
+    public void setM( ArrayList<ArrayList<HashMap<String, String>>> mapper) {
         this.mapper = mapper;
+
     }
 }
-*/
